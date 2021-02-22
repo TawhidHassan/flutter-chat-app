@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/services/auth.dart';
+import 'package:flutter_chat_app/views/sigin.dart';
 import 'package:flutter_chat_app/widgets/widget.dart';
 
 import 'chatsRooms.dart';
 import 'forgetpassword.dart';
 
 class SignUp extends StatefulWidget {
+  final Function toggleView;
+  SignUp(this.toggleView);
+
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -26,7 +30,7 @@ class _SignUpState extends State<SignUp> {
         isLoading = true;
       });
 
-      authService.signUpWithEmailAndPassword(emailEditingController.text, passwordEditingController.text)
+     await authService.signUpWithEmailAndPassword(emailEditingController.text, passwordEditingController.text)
       .then((result){
         if(result != null){
           Navigator.pushReplacement(context, MaterialPageRoute(
@@ -134,7 +138,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // widget.toggleView();
+                          widget.toggleView();
                         },
                         child: Text(
                           "Login now",
