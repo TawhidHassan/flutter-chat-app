@@ -27,7 +27,9 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 29
-
+    defaultConfig {
+        multiDexEnabled true
+    }
     lintOptions {
         disable 'InvalidPackage'
     }
@@ -54,4 +56,6 @@ flutter {
     source '../..'
 }
 
-
+dependencies {
+    implementation 'com.android.support:multidex:1.0.3' //enter the latest version
+}
