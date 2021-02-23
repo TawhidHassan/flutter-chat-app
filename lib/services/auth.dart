@@ -1,6 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/helper/helperfunctions.dart';
 import 'package:flutter_chat_app/modal/user.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -47,6 +48,7 @@ class AuthService {
 
   Future signOut() async {
     try {
+      HelperFunctions.saveUserLoggedInSharedPreference(false);
       return await _auth.signOut();
     } catch (e) {
       print(e.toString());
