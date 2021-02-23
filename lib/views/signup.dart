@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/helper/helperfunctions.dart';
 import 'package:flutter_chat_app/services/auth.dart';
 import 'package:flutter_chat_app/services/database.dart';
 import 'package:flutter_chat_app/views/sigin.dart';
@@ -40,6 +41,12 @@ class _SignUpState extends State<SignUp> {
             "userEmail" : emailEditingController.text
           };
           databaseMethods.uploadUserInfo(userDataMap);
+
+          HelperFunctions.saveUserLoggedInSharedPreference(true);
+          HelperFunctions.saveUserNameSharedPreference(usernameEditingController.text);
+          HelperFunctions.saveUserEmailSharedPreference(emailEditingController.text);
+
+
           Navigator.pushReplacement(context, MaterialPageRoute(
               builder: (context) => ChatRoom()
           ));

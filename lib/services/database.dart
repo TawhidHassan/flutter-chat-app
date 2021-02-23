@@ -14,4 +14,25 @@ class DatabaseMethods{
 
   }
 
+  createChatRoom(chatRoom, chatRoomId){
+    Firestore.instance
+        .collection("chatRoom")
+        .document(chatRoomId)
+        .setData(chatRoom)
+        .catchError((e) {
+      print(e);
+    });
+  }
+
+  getUserInfo(String email)async {
+    return Firestore.instance
+        .collection("users")
+        .where("userEmail", isEqualTo: email)
+        .getDocuments()
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
+
 }

@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/helper/helperfunctions.dart';
 import 'package:flutter_chat_app/services/auth.dart';
+import 'package:flutter_chat_app/services/database.dart';
 import 'package:flutter_chat_app/widgets/widget.dart';
 
 import 'chatsRooms.dart';
@@ -36,8 +39,22 @@ class _SignInState extends State<SignIn> {
           .then((result) async {
         if (result != null)  {
 
+          QuerySnapshot userInfoSnapshot =
+          await DatabaseMethods().getUserInfo(emailEditingController.text);
+
+          HelperFunctions.saveUserLoggedInSharedPreference(true);
+          HelperFunctions.saveUserNameSharedPreference(
+              userInfoSnapshot.documents[0].data["userName"]);
+          HelperFunctions.saveUserEmailSharedPreference(
+              userInfoSnapshot.documents[0].data["userEmail"]);
+
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => ChatRoom()));
+        }else {
+          setState(() {
+            isLoading = false;
+            //show snackbar
+          });
         }
       });
     }
